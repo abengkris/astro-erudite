@@ -1,0 +1,170 @@
+---
+const prerender = false
+import Link from '@/components/Link.astro'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import type { NostrEvent } from '@/lib/utils'
+import { getNevent } from '@/lib/utils'
+import { Icon } from 'astro-icon/components'
+
+const prodBaseUrl = 'https://abeng.xyz'
+const localBaseUrl = 'http://localhost:1234'
+
+const baseUrl =
+  process.env.NODE_ENV === 'production' ? prodBaseUrl : localBaseUrl
+// console.log('Current NODE_ENV:', process.env.NODE_ENV)
+
+let latestNote: NostrEvent | null = null
+let errorMessage: string | null = null
+let formatDate: string | null = null
+const pubkey =
+  '07907690ce3fec30fb2089eb5a61c147548c244ba85605e713d7991cd4e015f6'
+
+try {
+  const response = await fetch(`${baseUrl}/api/latest-note?hexpubkey=${pubkey}`)
+  if (response.ok) {
+    const data = await response.json()
+    // console.log('Data:', data)
+    latestNote = data.latestNote
+    formatDate = data.formattedDate
+  } else {
+    errorMessage = 'Failed to fetch the latest note. API returned an error.'
+  }
+} catch (error) {
+  errorMessage = 'Failed to fetch the latest note. Please try again later.'
+}
+---
+
+<div>
+  {
+    latestNote ? (
+      <Card>
+        <CardHeader>
+          <CardTitle className="font-semibold flex flex-wrap items-center -mb-4 -mt-3">
+            <Icon name="nostr" class="-ml-5 size-16" />{' '}
+            <a
+              href="/api/latest-note?hexpubkey=07907690ce3fec30fb2089eb5a61c147548c244ba85605e713d7991cd4e015f6"
+              class="text-green-600"
+              rel="_self"
+            >
+              /latest-nostr-note ( kind 1 )
+            </a>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {latestNote?.content.split('\n').map((line, index) => {
+            const urlRegex = /(https?:\/\/[^\s]+)/g
+            const allowedTags = ['bitcoin', 'nostr']
+            const nostrRegex = /(nostr:[^\s]+)/g
+
+            return (
+              <Fragment key={index}>
+                {line.split(urlRegex).map((part, i) => {
+                  if (urlRegex.test(part)) {
+                    // Deteksi URL
+                    const shortenedUrl =
+                      part.length > 30 ? `${part.slice(0, 30)}...` : part
+
+                    if (part.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                      // Jika URL adalah gambar
+                      return (
+                        <img
+                          src={part}
+                          alt="Embedded Image from nostr"
+                          class="my-2 w-full rounded-md"
+                        />
+                      )
+                    }
+
+                    // Jika URL bukan gambar
+                    return (
+                      <a
+                        href={part}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-green-600"
+                      >
+                        {shortenedUrl}
+                      </a>
+                    )
+                  }
+
+                  if (nostrRegex.test(part)) {
+                    // Deteksi nostr URL
+                    const uiUrl = `https://nostrapp.link/${part.replace('nostr:', '')}`
+                    const nostrUrl =
+                      uiUrl.length > 30 ? `${uiUrl.slice(0, 30)}...` : uiUrl
+
+                    return (
+                      <a
+                        href={uiUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-green-600"
+                      >
+                        {nostrUrl}
+                      </a>
+                    )
+                  }
+
+                  // Deteksi Hashtag
+                  if (part.includes('#')) {
+                    return part.split(/(#\w+)/g).map((subPart, j) => {
+                      if (subPart.startsWith('#')) {
+                        const tag = subPart.slice(1).toLowerCase() // Ambil tag tanpa '#'
+                        if (allowedTags.includes(tag)) {
+                          // Jika tag termasuk yang diizinkan
+                          return (
+                            <a href={`/tags/${tag}`} class="text-green-600">
+                              {subPart}
+                            </a>
+                          )
+                        }
+                      }
+
+                      // Tampilkan teks biasa jika bukan hashtag yang diizinkan
+                      return <span>{subPart}</span>
+                    })
+                  }
+
+                  // Teks biasa jika tidak ada URL atau hashtag
+                  return <p>{part}</p>
+                })}
+              </Fragment>
+            )
+          })}
+        </CardContent>
+        <CardFooter>
+          <span class="text-muted-foreground mr-2 text-xs">{formatDate}</span>
+          <Link
+            href={`https://zapper.nostrapps.org/zap?id=${getNevent(latestNote.id)}&type=zap`}
+            external
+          >
+            <Button variant="ghost">&#x26A1; Zap</Button>
+          </Link>
+          <Link
+            href={`https://nostrapp.link/${getNevent(latestNote.id)}`}
+            external
+          >
+            <Button variant="ghost">
+              <Icon
+                name="lucide:square-arrow-out-up-right"
+                size="15"
+                class="mr-1"
+              />
+              Buka
+            </Button>
+          </Link>
+        </CardFooter>
+      </Card>
+    ) : (
+      <p>{errorMessage || 'No latest note available.'}</p>
+    )
+  }
+</div>
