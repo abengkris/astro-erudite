@@ -113,6 +113,6 @@ export default defineConfig({
     ],
     remarkPlugins: [remarkMath, remarkEmoji, remarkSectionize],
   },
-  output: 'server',
+  output: 'static',
   adapter: vercel(),
 })
