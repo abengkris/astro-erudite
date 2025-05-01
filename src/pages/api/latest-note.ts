@@ -1,7 +1,7 @@
 export const prerender = false;
 import type { APIRoute } from 'astro';
 import { nip19, Relay } from 'nostr-tools';
-import { useWebSocketImplementation } from 'nostr-tools/lib/types/pool';
+import { useWebSocketImplementation } from 'nostr-tools/relay';
 import * as WebSocket from 'ws';
 
 // Define the NostrEvent type
