@@ -24,7 +24,7 @@ async function fetchLatestNote(hexPubKey: string): Promise<NostrEvent> {
     const relays = [
         'wss://relay.nostr.band',
         'wss://relay.damus.io',
-        'wss://nosdrive.app/relay',
+        'wss://nos.lol',
     ];
 
     const relayPromises = relays.map((url) =>
