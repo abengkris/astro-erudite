@@ -2,7 +2,7 @@ export const prerender = false;
 import type { APIRoute } from 'astro';
 import { nip19, Relay } from 'nostr-tools';
 import { useWebSocketImplementation } from 'nostr-tools/relay';
-import * as WebSocket from 'ws';
+import WebSocket from 'ws';
 
 // Define the NostrEvent type
 export type NostrEvent = {
@@ -19,7 +19,9 @@ export type NostrEvent = {
 async function fetchLatestNote(hexPubKey: string): Promise<NostrEvent> {
     // console.log("Using provided HEX PUBLIC KEY:", hexPubKey);
 
-    useWebSocketImplementation(WebSocket);
+    if (typeof WebSocket !== 'function') {
+  useWebSocketImplementation(WebSocket);
+}
 
     const relays = [
         'wss://relay.nostr.band',
