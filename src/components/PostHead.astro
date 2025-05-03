@@ -48,3 +48,33 @@ const author = post.data.authors ? post.data.authors.join(', ') : SITE.author
       return <meta property="article:tag" content={tag} />
     })
 }
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{SITE.href}"
+    },
+    "headline": "{title}",
+    "description": "{description}",
+    "image": [
+      "{SITE.href}${post?.data?.image?.src}"
+    ],
+    "author": {
+      "@type": "Person",
+      "name": "{author}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{SITE.title}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{SITE.href}/static/logo.png"
+      }
+    },
+    "datePublished": "{post.data.date}",
+    "dateModified": "{post.data.updatedDate || post.data.date}"
+  }
+</script>
