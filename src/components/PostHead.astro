@@ -52,24 +52,24 @@ const dateModified = post.data?.updatedDate || post.data.date
     "@type": "BlogPosting",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": {canonicalUrl}
+      "@id": "{canonicalUrl}"
     },
-    "headline": {title},
-    "description": {description},
+    "headline": "{title}",
+    "description": "{description}",
     "image": [image],
     "author": {
       "@type": "Person",
-      "name": {author}
+      "name": "{author}"
     },
     "publisher": {
       "@type": "Organization",
-      "name": {SITE.title},
+      "name": "{SITE.title}",
       "logo": {
         "@type": "ImageObject",
         "url": "/static/logo.png"
       }
     },
-    "datePublished": {datePublished},
-    "dateModified": {dateModified}
+    "datePublished": "{datePublished}",
+    "dateModified": "{dateModified}"
   }
 </script>
