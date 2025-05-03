@@ -15,7 +15,7 @@ const image = post?.data?.image?.src ? `${SITE.href}${post.data.image.src}` : fa
 const author = post.data.authors ? post.data.authors.join(', ') : SITE.author
 const canonicalUrl = new URL(post.slug, SITE.href).toString()
 const datePublished = post.data.date
-const dateModified = post.data.updatedDate || post.data.date
+const dateModified = post.data?.updatedDate || post.data.date
 ---
 
 <title>{`${title} | ${SITE.title}`}</title>
