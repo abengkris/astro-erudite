@@ -72,6 +72,6 @@ const dateModified = post.data?.updatedDate || post.data.date
     },
     "datePublished": new Date(post.data.date).toISOString(),
     "dateModified": new Date(post.data.updatedDate || post.data.date).toISOString(),
-    "keywords": post?.data.tags.join(",") || "abeng, abengkris"
+    "keywords": post.data.tags?.join(",") || "abeng, abengkris"
   }}
   />
