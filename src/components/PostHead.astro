@@ -47,7 +47,7 @@ const dateModified = post.data?.updatedDate || post.data.date
 }
 
 <script type="application/ld+json">
-  {JSON.stringify({
+  {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "mainEntityOfPage": {
@@ -71,5 +71,5 @@ const dateModified = post.data?.updatedDate || post.data.date
     },
     "datePublished": datePublished,
     "dateModified": dateModified
-  })}
+  }
 </script>
