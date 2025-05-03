@@ -37,25 +37,25 @@ const authors = await parseAuthors(post.data.authors ?? [])
     "@type": "BlogPosting",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "{currentPostId}"
+      "@id": "${currentPostId}"
     },
-    "headline": "{post.data.title}",
-    "description": "{post.data.description}",
-    "image": "{post.data.image}",
+    "headline": "${post.data.title}",
+    "description": "${post.data.description}",
+    "image": "${post.data.image}",
     "author": {
       "@type": "Person",
-      "name": "{authors}"
+      "name": "${authors}"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "{SITE.title}",
+      "name": "${SITE.title}",
       "logo": {
         "@type": "ImageObject",
         "url": "/static/logo.png"
       }
     },
-    "datePublished": "{post.data.date.toISOString()}",
-    "dateModified": "{dateModified.toISOString() || post.data.date.toISOString()}"
+    "datePublished": "${post.data.date.toISOString()}",
+    "dateModified": "${dateModified.toISOString() || post.data.date.toISOString()}"
   }
 </script>
   <section
