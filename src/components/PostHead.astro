@@ -53,7 +53,7 @@ const dateModified = post.data?.updatedDate || post.data.date
     "@type": "BlogPosting",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `${Astro.site}${Astro.url.pathname}`
+      "@id": `${SITE.href}${Astro.url.pathname}`
     },
     "headline": post.data.title,
     "description": post.data.description,
