@@ -45,31 +45,3 @@ const dateModified = post.data?.updatedDate || post.data.date
     <meta property="article:tag" content={tag} />
   ))
 }
-
-<script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": {canonicalUrl}
-    },
-    "headline": {title},
-    "description": {description},
-    "image": {image},
-    "author": {
-      "@type": "Person",
-      "name": {author}
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": {SITE.title},
-      "logo": {
-        "@type": "ImageObject",
-        "url": "/static/logo.png"
-      }
-    },
-    "datePublished": {datePublished.toISOString()},
-    "dateModified": {dateModified.toISOString()}
-  }
-</script>
