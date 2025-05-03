@@ -37,14 +37,14 @@ const authors = await parseAuthors(post.data.authors ?? [])
     "@type": "BlogPosting",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": {canonicalUrl}
+      "@id": {currentPostId}
     },
-    "headline": {title},
-    "description": {description},
-    "image": {image},
+    "headline": {post.data.title},
+    "description": {post.data.description},
+    "image": {post.data.image},
     "author": {
       "@type": "Person",
-      "name": {author}
+      "name": {authors}
     },
     "publisher": {
       "@type": "Organization",
@@ -54,8 +54,8 @@ const authors = await parseAuthors(post.data.authors ?? [])
         "url": "/static/logo.png"
       }
     },
-    "datePublished": {datePublished.toISOString()},
-    "dateModified": {dateModified.toISOString()}
+    "datePublished": {post.data.date.toISOString()},
+    "dateModified": {dateModified.toISOString() || post.data.date.toISOString()}
   }
 </script>
   <section
