@@ -31,33 +31,6 @@ const authors = await parseAuthors(post.data.authors ?? [])
 
 <Layout isWide>
   <PostHead slot="head" post={post} />
-  <script type="application/ld+json">
-  {JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `${Astro.site}${Astro.url.pathname}`
-    },
-    "headline": post.data.title,
-    "description": post.data.description,
-    "image": [`${SITE.href}${post.data.image?.src || '/static/1200x630.png'}`],
-    "author": {
-      "@type": "Person",
-      "name": post.data.authors?.join(', ') || SITE.author
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": SITE.title,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${SITE.href}/static/logo.png`
-      }
-    },
-    "datePublished": new Date(post.data.date).toISOString(),
-    "dateModified": new Date(post.data.updatedDate || post.data.date).toISOString()
-  })}
-</script>
   <section
     class="grid grid-cols-[minmax(0px,1fr)_min(calc(var(--breakpoint-md)-2rem),100%)_minmax(0px,1fr)] gap-y-6"
   >

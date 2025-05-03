@@ -1,6 +1,7 @@
 ---
 import { SITE } from '@/consts'
 import type { CollectionEntry } from 'astro:content'
+import Schema from '@/components/schema'
 
 interface Props {
   post: CollectionEntry<'blog'>
@@ -45,3 +46,31 @@ const dateModified = post.data?.updatedDate || post.data.date
     <meta property="article:tag" content={tag} />
   ))
 }
+
+<Schema
+    item={{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${Astro.site}${Astro.url.pathname}`
+    },
+    "headline": post.data.title,
+    "description": post.data.description,
+    "image": [`${SITE.href}${post.data.image?.src || '/static/1200x630.png'}`],
+    "author": {
+      "@type": "Person",
+      "name": post.data.authors?.join(', ') || SITE.author
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": SITE.title,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${SITE.href}/static/logo.png`
+      }
+    },
+    "datePublished": new Date(post.data.date).toISOString(),
+    "dateModified": new Date(post.data.updatedDate || post.data.date).toISOString()
+  }}
+  />
