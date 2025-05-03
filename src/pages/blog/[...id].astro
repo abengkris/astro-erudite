@@ -37,7 +37,7 @@ const authors = await parseAuthors(post.data.authors ?? [])
     "@type": "BlogPosting",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": currentPostId
+      "@id": "{currentPostId}"
     },
     "headline": {post.data.title},
     "description": {post.data.description},
