@@ -55,26 +55,26 @@ const author = post.data.authors ? post.data.authors.join(', ') : SITE.author
     "@type": "BlogPosting",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "{SITE.href}"
+      "@id": `${SITE.href}`
     },
-    "headline": "{title}",
-    "description": "{description}",
+    "headline": `${title}`,
+    "description": `${description}`,
     "image": [
-      "{SITE.href}${post?.data?.image?.src}"
+      `${SITE.href}${post?.data?.image?.src}`
     ],
     "author": {
       "@type": "Person",
-      "name": "{author}"
+      "name": `${author}`
     },
     "publisher": {
       "@type": "Organization",
-      "name": "{SITE.title}",
+      "name": `${SITE.title}`,
       "logo": {
         "@type": "ImageObject",
-        "url": "{SITE.href}/static/logo.png"
+        "url": `${SITE.href}/static/logo.png`
       }
     },
-    "datePublished": "{post.data.date}",
-    "dateModified": "{post.data.updatedDate || post.data.date}"
+    "datePublished": `${post.data.date}`,
+    "dateModified": `${post.data.updatedDate || post.data.date}`
   }
 </script>
