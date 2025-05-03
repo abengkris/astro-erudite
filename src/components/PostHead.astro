@@ -13,7 +13,7 @@ const description = post.data.description || SITE.description
 const fallbackImage = new URL('/static/1200x630.png', Astro.site).toString()
 const image = post?.data?.image?.src ? `${SITE.href}${post.data.image.src}` : fallbackImage
 const author = post.data.authors ? post.data.authors.join(', ') : SITE.author
-const canonicalUrl = new URL(post.data?.slug, SITE.href).toString()
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
 const datePublished = post.data.date
 const dateModified = post.data?.updatedDate || post.data.date
 ---
