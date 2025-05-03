@@ -60,7 +60,7 @@ const author = post.data.authors ? post.data.authors.join(', ') : SITE.author
     "headline": "{title}",
     "description": "{description}",
     "image": [
-      "{SITE.href}${post?.data?.image?.src}"
+      "${post?.data?.image?.src}"
     ],
     "author": {
       "@type": "Person",
@@ -71,7 +71,7 @@ const author = post.data.authors ? post.data.authors.join(', ') : SITE.author
       "name": "{SITE.title}",
       "logo": {
         "@type": "ImageObject",
-        "url": "{SITE.href}/static/logo.png"
+        "url": "/static/logo.png"
       }
     },
     "datePublished": "{post.data.date}",
