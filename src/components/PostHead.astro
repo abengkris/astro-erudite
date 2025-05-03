@@ -55,7 +55,7 @@ const author = post.data.authors ? post.data.authors.join(', ') : SITE.author
     "@type": "BlogPosting",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "{SITE.href}"
+      "@id": "{`{SITE.href}`}"
     },
     "headline": "{title}",
     "description": "{description}",
