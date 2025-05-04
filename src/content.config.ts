@@ -16,6 +16,21 @@ const blog = defineCollection({
     }),
 })
 
+const karya = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/karya' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      date: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      image: image().optional(),
+      tags: z.array(z.string()).optional(),
+      authors: z.array(z.string()).optional(),
+      draft: z.boolean().optional(),
+    }),
+})
+
 const authors = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/authors' }),
   schema: z.object({
@@ -46,4 +61,4 @@ const projects = defineCollection({
     }),
 })
 
-export const collections = { blog, authors, projects }
+export const collections = { blog, karya, authors, projects }

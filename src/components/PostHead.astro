@@ -1,7 +1,7 @@
 ---
+import { Schema } from '@/components/schema'
 import { SITE } from '@/consts'
 import type { CollectionEntry } from 'astro:content'
-import { Schema } from '@/components/schema'
 
 interface Props {
   post: CollectionEntry<'blog'>
@@ -12,11 +12,11 @@ const { post } = Astro.props
 const title = post.data.title || SITE.title
 const description = post.data.description || SITE.description
 const fallbackImage = new URL('/static/1200x630.png', Astro.site).toString()
-const image = post?.data?.image?.src ? `${SITE.href}${post.data.image.src}` : fallbackImage
+const image = post?.data?.image?.src
+  ? `${SITE.href}${post.data.image.src}`
+  : fallbackImage
 const author = post.data.authors ? post.data.authors.join(', ') : SITE.author
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString()
-const datePublished = post.data.date
-const dateModified = post.data?.updatedDate || post.data.date
 ---
 
 <title>{`${title} | ${SITE.title}`}</title>
@@ -33,6 +33,7 @@ const dateModified = post.data?.updatedDate || post.data.date
 <meta property="og:site_name" content={SITE.title} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:author" content={author} />
+<meta property="og:type" content="article" />
 
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
@@ -41,37 +42,40 @@ const dateModified = post.data?.updatedDate || post.data.date
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content={author} />
 
-{post?.data.tags &&
-  post.data.tags.map((tag: string) => (
-    <meta property="article:tag" content={tag} />
-  ))
+{
+  post?.data.tags &&
+    post.data.tags.map((tag: string) => (
+      <meta property="article:tag" content={tag} />
+    ))
 }
 
 <Schema
-    item={{
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": `${SITE.href}${Astro.url.pathname}`
+  item={{
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE.href}${Astro.url.pathname}`,
     },
-    "headline": post.data.title,
-    "description": post.data.description,
-    "image": [`${SITE.href}${post.data.image?.src || '/static/1200x630.png'}`],
-    "author": {
-      "@type": "Person",
-      "name": post.data.authors?.join(', ') || SITE.author
+    headline: post.data.title,
+    description: post.data.description,
+    image: [`${SITE.href}${post.data.image?.src || '/static/1200x630.png'}`],
+    author: {
+      '@type': 'Person',
+      name: post.data.authors?.join(', ') || SITE.author,
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": SITE.title,
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${SITE.href}/static/logo.png`
-      }
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.title,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE.href}/static/logo.png`,
+      },
     },
-    "datePublished": new Date(post.data.date).toISOString(),
-    "dateModified": new Date(post.data.updatedDate || post.data.date).toISOString(),
-    "keywords": post.data.tags?.join(",") || "abeng, abengkris"
+    datePublished: new Date(post.data.date).toISOString(),
+    dateModified: new Date(
+      post.data.updatedDate || post.data.date,
+    ).toISOString(),
+    keywords: post.data.tags?.join(',') || 'abeng, abengkris',
   }}
-  />
+/>

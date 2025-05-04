@@ -7,8 +7,8 @@ import Head from '@/components/Head.astro'
 import Header from '@/components/Header.astro'
 import { SITE } from '@/consts'
 import { cn } from '@/lib/utils'
-import Analytics from '@vercel/analytics/astro';
-import  SpeedInsights  from "@vercel/speed-insights/astro";
+import Analytics from '@vercel/analytics/astro'
+import SpeedInsights from '@vercel/speed-insights/astro'
 
 const { isWide = false } = Astro.props
 ---
@@ -17,7 +17,7 @@ const { isWide = false } = Astro.props
 <html lang={SITE.locale}>
   <Head>
     <slot name="head" />
-	 <Analytics />
+    <Analytics />
   </Head>
   <body>
     <div class="flex h-fit min-h-screen flex-col gap-y-6 font-sans">
@@ -34,6 +34,6 @@ const { isWide = false } = Astro.props
       </main>
       <Footer />
     </div>
-	 <SpeedInsights />
+    <SpeedInsights />
   </body>
 </html>
