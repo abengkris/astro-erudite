@@ -1,7 +1,7 @@
 ---
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
 import Link from '@/components/Link.astro'
-import KaryaHead from '@/components/KaryaHead.astro'
+import CerpenHead from '@/components/CerpenHead.astro'
 import KaryaNavigation from '@/components/KaryaNavigation.astro'
 import TableOfContents from '@/components/TableOfContents.astro'
 import { badgeVariants } from '@/components/ui/badge'
@@ -30,7 +30,7 @@ const authors = await parseAuthors(post.data.authors ?? [])
 ---
 
 <Layout isWide>
-  <KaryaHead slot="head" post={post} />
+  <CerpenHead slot="head" post={post} />
   <section
     class="grid grid-cols-[minmax(0px,1fr)_min(calc(var(--breakpoint-md)-2rem),100%)_minmax(0px,1fr)] gap-y-6"
   >
