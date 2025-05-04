@@ -76,8 +76,6 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString()
     'image': {
       '@type': 'ImageObject',
       'url': `${SITE.href}${post.data.image?.src || '/static/1200x630.png'}`,
-      'width': 1200, // Sesuaikan dengan dimensi gambar
-      'height': 630
     },
     'publisher': {
       '@type': 'Organization',
