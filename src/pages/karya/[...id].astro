@@ -30,7 +30,7 @@ const authors = await parseAuthors(post.data.authors ?? [])
 ---
 
 <Layout isWide>
-  <PostHead slot="head" post={post} />
+  <KaryaHead slot="head" post={post} />
   <section
     class="grid grid-cols-[minmax(0px,1fr)_min(calc(var(--breakpoint-md)-2rem),100%)_minmax(0px,1fr)] gap-y-6"
   >
@@ -122,7 +122,7 @@ const authors = await parseAuthors(post.data.authors ?? [])
         </div>
       </div>
 
-      <PostNavigation prevPost={prev} nextPost={next} />
+      <KaryaNavigation prevPost={prev} nextPost={next} />
     </section>
 
     {headings.length > 0 && <TableOfContents headings={headings} />}
@@ -131,7 +131,7 @@ const authors = await parseAuthors(post.data.authors ?? [])
       <Content />
     </article>
 
-    <PostNavigation prevPost={prev} nextPost={next} />
+    <KaryaNavigation prevPost={prev} nextPost={next} />
   </section>
 
   <Button
