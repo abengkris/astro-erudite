@@ -69,7 +69,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString()
             'name': SITE.author
           },
       'description': post.data.description,
-      'genre': post.data.tags?.includes('puisi') ? 'Poetry' : post.data.tags?.includes('cerpen') ? (post.data.genre || 'Fiction') : post.data.genre || 'Fiction',
+      'genre': post.data.tags?.includes('puisi') ? 'Poetry' : post.data.tags?.includes('cerpen') ? 'Fiction' : 'Fiction',
       'text': post.data.description || '',
       'keywords': post.data.tags?.join(',') || (post.data.tags?.includes('puisi') ? 'puisi, sastra, abeng, abengkris' : 'cerpen, fiksi, abeng, abengkris')
     },
