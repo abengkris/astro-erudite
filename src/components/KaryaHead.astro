@@ -52,30 +52,41 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString()
 <Schema
   item={{
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    mainEntityOfPage: {
-      '@type': 'WebPage',
+    '@type': 'WebPage',
+    'name': post.data.title,
+    'description': post.data.description,
+    'mainEntity': {
+      '@type': post.data.tags?.includes('puisi') ? 'CreativeWork' : post.data.tags?.includes('cerpen') ? 'ShortStory' : 'CreativeWork',
       '@id': `${SITE.href}${Astro.url.pathname}`,
+      'name': post.data.title,
+      'author': post.data.authors
+        ? post.data.authors.map(author => ({
+            '@type': 'Person',
+            'name': author
+          }))
+        : {
+            '@type': 'Person',
+            'name': SITE.author
+          },
+      'description': post.data.description,
+      'genre': post.data.tags?.includes('puisi') ? 'Poetry' : post.data.tags?.includes('cerpen') ? (post.data.genre || 'Fiction') : post.data.genre || 'Fiction',
+      'text': post.data.description || '',
+      'keywords': post.data.tags?.join(',') || (post.data.tags?.includes('puisi') ? 'puisi, sastra, abeng, abengkris' : 'cerpen, fiksi, abeng, abengkris')
     },
-    headline: post.data.title,
-    description: post.data.description,
-    image: [`${SITE.href}${post.data.image?.src || '/static/1200x630.png'}`],
-    author: {
-      '@type': 'Person',
-      name: post.data.authors?.join(', ') || SITE.author,
+    'image': {
+      '@type': 'ImageObject',
+      'url': `${SITE.href}${post.data.image?.src || '/static/1200x630.png'}`,
     },
-    publisher: {
+    'publisher': {
       '@type': 'Organization',
-      name: SITE.title,
-      logo: {
+      'name': SITE.title,
+      'logo': {
         '@type': 'ImageObject',
-        url: `${SITE.href}/static/logo.png`,
-      },
+        'url': `${SITE.href}/static/logo.png`
+      }
     },
-    datePublished: new Date(post.data.date).toISOString(),
-    dateModified: new Date(
-      post.data.updatedDate || post.data.date,
-    ).toISOString(),
-    keywords: post.data.tags?.join(',') || 'abeng, abengkris',
+    'datePublished': new Date(post.data.date).toISOString(),
+    'dateModified': new Date(post.data.updatedDate || post.data.date).toISOString(),
+    'keywords': post.data.tags?.join(',') || (post.data.tags?.includes('puisi') ? 'puisi, sastra, abeng, abengkris' : 'cerpen, fiksi, abeng, abengkris')
   }}
 />
