@@ -1,5 +1,6 @@
 ---
 import BlogCard from '@/components/BlogCard.astro'
+import KaryaCard from '@/components/KaryaCard.astro'
 // import LatestNote from '@/components/LatestNote.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
@@ -46,7 +47,7 @@ const karya = await getRecentKarya(SITE.featuredPostCount)
       {
         karya.map((sastra) => (
           <li>
-            <BlogCard entry={sastra} />
+            <KaryaCard entry={sastra} />
           </li>
         ))
       }
