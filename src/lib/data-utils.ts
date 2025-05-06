@@ -21,6 +21,13 @@ export async function getRecentPosts(
     return posts.slice(0, count);
 }
 
+export async function getRecentKarya(
+    count: number
+): Promise<CollectionEntry<"karya">[]> {
+    const posts = await getAllKarya();
+    return posts.slice(0, count);
+}
+
 export async function getAdjacentPosts(currentId: string): Promise<{
     prev: CollectionEntry<"blog"> | null;
     next: CollectionEntry<"blog"> | null;
@@ -99,6 +106,19 @@ export function groupPostsByYear(
         (acc: Record<string, CollectionEntry<"blog">[]>, post) => {
             const year = post.data.date.getFullYear().toString();
             (acc[year] ??= []).push(post);
+            return acc;
+        },
+        {}
+    );
+}
+
+export function groupKaryaByYear(
+    karya: CollectionEntry<"karya">[]
+): Record<string, CollectionEntry<"karya">[]> {
+    return karya.reduce(
+        (acc: Record<string, CollectionEntry<"karya">[]>, sastra) => {
+            const year = sastra.data.date.getFullYear().toString();
+            (acc[year] ??= []).push(sastra);
             return acc;
         },
         {}
