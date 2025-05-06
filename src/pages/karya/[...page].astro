@@ -1,7 +1,7 @@
 ---
 import BlogCard from '@/components/BlogCard.astro'
 import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import KaryaHead from '@/components/KaryaHead.astro'
+import PageHead from '@/components/PageHead.astro'
 import PaginationComponent from '@/components/ui/pagination'
 import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
@@ -38,9 +38,9 @@ const years = Object.keys(karyaByYear).sort((a, b) => parseInt(b) - parseInt(a))
         <section class="flex flex-col gap-y-4">
           <div class="font-medium">{year}</div>
           <ul class="flex flex-col gap-4">
-            {postsByYear[year].map((post) => (
+            {karyaByYear[year].map((sastra) => (
               <li>
-                <BlogCard entry={post} />
+                <BlogCard entry={sastra} />
               </li>
             ))}
           </ul>
