@@ -131,9 +131,9 @@ const url = Astro.url.href
 
     <article class="prose col-start-2 max-w-none">
       <Content />
+      
+      <ShareButtons title={post.data.title} url={url} />
     </article>
-    
-    <ShareButtons title={post.data.title} url={url} />
 
     <KaryaNavigation prevPost={prev} nextPost={next} />
   </section>
