@@ -1,0 +1,78 @@
+---
+import { Button } from '@/components/ui/button'
+
+const { title, url } = Astro.props;
+
+const encodedTitle = encodeURIComponent(title);
+const encodedUrl = encodeURIComponent(url);
+
+const socialLinks = [
+  {
+    name: "Twitter",
+    url: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
+  },
+  {
+    name: "Facebook",
+    url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+  },
+  {
+    name: "LinkedIn",
+    url: `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`,
+  },
+  {
+    name: "WhatsApp",
+    url: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,
+  },
+];
+---
+
+<div class="share-container">
+  <h2>Bagikan:</h2>
+  <ul class="share-buttons">
+    {socialLinks.map((platform) => (
+      <li>
+        <a href={platform.url} target="_blank" rel="noopener noreferrer">
+          {platform.name}
+        </a>
+      </li>
+    ))}
+    <li>
+      <Button type="button" onClick={() => navigator.clipboard.writeText(url)}>
+        Salin Tautan
+      </Button>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .share-container {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .share-buttons a,
+  .share-buttons button {
+    background: #f3f3f3;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+
+  .share-buttons a:hover,
+  .share-buttons button:hover {
+    background: #ddd;
+  }
+</style>

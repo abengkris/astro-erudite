@@ -13,6 +13,7 @@ import { formatDate, readingTime } from '@/lib/utils'
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
 import { render } from 'astro:content'
+import ShareButtons from '@/components/ShareButton.astro'
 
 export async function getStaticPaths() {
   const posts = await getAllKarya()
@@ -27,6 +28,7 @@ const currentPostId = Astro.params.id
 const { Content, headings } = await render(post)
 const { next, prev } = await getAdjacentKarya(currentPostId)
 const authors = await parseAuthors(post.data.authors ?? [])
+const url = Astro.url.href
 ---
 
 <Layout isWide>
@@ -130,6 +132,8 @@ const authors = await parseAuthors(post.data.authors ?? [])
     <article class="prose col-start-2 max-w-none">
       <Content />
     </article>
+    
+    <ShareButtons title={post.data.title} url={url} />
 
     <KaryaNavigation prevPost={prev} nextPost={next} />
   </section>
