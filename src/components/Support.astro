@@ -1,0 +1,52 @@
+---
+const donationItems = [
+  {
+    label: "Donasi via Bitcoin (Lightning)",
+    icon: "/icons/bitcoin.svg",
+    url: "lightning:lnurl1dp68gurn8ghj7ctsdyh85etzv4jx2efwd9hj7a3s9aex2ut4v4ehgttnw3shg6tr943ksctjvajhxtmxx9jnzwf5xvcz6vphvyuz6dp3vvcj6wp3v56z6cf5v4skgdmy8q6xvdp4pwm3zy",
+  },
+  {
+    label: "Donasi via Karyakarsa",
+    icon: "/icons/karyakarsa.svg",
+    url: "https://karyakarsa.com/abengkris/support",
+  },
+  {
+    label: "Donasi via PayPal",
+    icon: "/icons/paypal.svg",
+    url: "https://paypal.me/abengpay",
+  },
+  {
+    label: "Tentang Donasi",
+    icon: "/icons/info.svg",
+    url: "/support",
+  },
+];
+---
+
+<div class="space-y-2">
+  <h2 class="font-semibold text-sm">Support Abengkris</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+    {donationItems.map(item => (
+      <a
+        href={item.url}
+        class="flex items-center justify-between border rounded-xl p-3 sm:p-4 hover:bg-muted transition-colors"
+        target={item.url.startsWith('/') ? '_self' : '_blank'}
+        rel={item.url.startsWith('/') ? undefined : 'noopener noreferrer'}
+      >
+        <div class="flex items-center space-x-3">
+          <img src={item.icon} alt={item.label} class="w-6 h-6 sm:w-7 sm:h-7" />
+          <span class="text-sm font-medium text-foreground">{item.label}</span>
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4 text-muted-foreground"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14" />
+        </svg>
+      </a>
+    ))}
+  </div>
+</div>

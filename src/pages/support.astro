@@ -8,53 +8,74 @@ import { getImage } from 'astro:assets'
 import barcodeLightning from '../../public/abeng@blink.sv.png'
 
 const barcodeLn = await getImage({ src: barcodeLightning, width: 300 })
+const donationItems = [
+  {
+    label: "Donasi via Karyakarsa",
+    icon: "/icons/karyakarsa.svg",
+    url: "https://karyakarsa.com/abengkris/support",
+  },
+  {
+    label: "Donasi via PayPal",
+    icon: "/icons/paypal.svg",
+    url: "https://paypal.me/abengpay",
+  },
+];
 ---
 
 <Layout title="Support" description={SITE.description}>
   <Container class="flex flex-col gap-y-6">
     <Breadcrumbs items={[{ label: 'Support', icon: 'lucide:zap' }]} />
 
-    <section>
+    <section class="prose">
       <div class="min-w-full">
         <h1 class="mb-4 text-3xl font-bold">Ways to Support Me</h1>
         <p>
           Pertama-tama: terima kasih atas dukungan Anda. Berkat orang-orang
           seperti Anda, saya mampu melakukan apa yang saya lakukan. Semua karya
-          saya dirilis secara gratis di bawah lisensi terbuka dan permisif dan
+          saya dirilis secara gratis di bawah lisensi sumber terbuka dan permisif dan
           diberikan berdasarkan nilai yang sepadan.
         </p>
-        <h2 id="lightning">Lightning Support</h2>
-        <p>
-          Anda dapat mengirim sejumlah sats yang diinginkan ke <Link
-            href="lightning:sats@abeng.xyz"
-            title="Click to open your lightning wallet"
-            external
-            class="text-orange-500 underline hover:text-orange-400"
-            >sats@abeng.xyz</Link
-          >
-          atau scan barcode di bawah ini menggunakan lightning wallet Anda.
-        </p>
-        <div class="my-4 flex flex-col items-center justify-center">
-          <img
-            src={barcodeLn.src}
-            alt="Barcode lightning abeng@blink.sv"
-            {...barcodeLn.attributes}
-            class="mb-4 w-1/2"
-          />
-          <p class="text-center text-sm">
-            <span class="font-semibold"
-              >Having trouble scanning this QR code with your wallet?</span
-            > Some wallets do not support printed QR codes like this one. Scan with
-            the camera app on your phone to be taken to a webpage where you can create
-            a fresh invoice for paying from any Lightning wallet.
-          </p>
-        </div>
-        <p>
-          Artikel-artikel saya juga memiliki alamat lightning, jadi jika Anda
-          ingin mengirim beberapa sats ke artikel tertentu—Anda bisa
-          melakukannya!
-        </p>
+        <p>Jika blog ini kamu rasa bermanfaat untukmu, kamu bisa mendukung saya untuk menulis lebih banyak artikel.</p>
+    <p>Menulis artikel dan membuat karya tulisan membutuhkan usaha dan waktu. Donasi kamu akan sangat berarti dan memberikan semangat serta motivasi ekstra untuk saya terus berkarya.</p>
+    <p>Donasi yang kamu berikan dapat membiayai perpanjangan domain dan projek lainnya berkenaan dengan abeng.xyz.</p>
       </div>
     </section>
+
+	 <section>
+	 <div class="space-y-2">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+    {donationItems.map(item => (
+      <a
+        href={item.url}
+        class="flex items-center justify-between border rounded-xl p-3 sm:p-4 hover:bg-muted transition-colors"
+        target={item.url.startsWith('/') ? '_self' : '_blank'}
+        rel={item.url.startsWith('/') ? undefined : 'noopener noreferrer'}
+      >
+        <div class="flex items-center space-x-3">
+          <img src={item.icon} alt={item.label} class="w-6 h-6 sm:w-7 sm:h-7" />
+          <span class="text-sm font-medium text-foreground">{item.label}</span>
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4 text-muted-foreground"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14" />
+        </svg>
+      </a>
+    ))}
+  </div>
+</div>
+</section>
+
+<lightning-widget 
+  name="Abengisme" 
+  accent="#000000" 
+  to="sats@abeng.xyz" 
+  image="/static/logo.png?size=200&default=mm&rating=g" 
+/>
+<script src="https://embed.twentyuno.net/js/app.js"></script>
   </Container>
 </Layout>

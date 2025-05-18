@@ -107,4 +107,28 @@
   .disable-transitions * {
     @apply transition-none!;
   }
+
+	.support {
+		@apply mt-2 flex flex-col
+		}
+
+	.supportJudul {
+		@apply font-bold
+		}
+
+	.supportIsi a, .supportIsi a span {
+		@apply flex-grow
+		}
+
+	.supportIsi a {
+		@apply grid gap-4 md:[grid-template-columns:repeat(var(--col),1fr)] sm:grid-cols-2
+		}
+
+	.support img {
+		@apply w-[35px]
+		}
+
+	.support svg {
+		@apply h-4 w-4
+		}
 }
